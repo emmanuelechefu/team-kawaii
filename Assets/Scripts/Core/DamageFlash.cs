@@ -5,20 +5,38 @@ using System.Collections;
 public class DamageFlash : MonoBehaviour
 {
     public Image flashImage;
+    public AudioClip damageSound;
+
     public float fadeSpeed = 5f;
     public Color flashColor = new Color(1f, 0f, 0f, 0.5f);
+
+    private AudioSource audioSource;
 
     void Awake()
     {
         if (flashImage == null) flashImage = GetComponent<Image>();
+        
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         if (flashImage != null) flashImage.color = Color.clear;
     }
 
     public void Flash()
     {
-        if (flashImage == null) return;
-        StopAllCoroutines();
-        StartCoroutine(DoFlash());
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+        }
+
+        if (flashImage != null)
+        {
+            StopAllCoroutines();
+            StartCoroutine(DoFlash());
+        }
     }
 
     IEnumerator DoFlash()
