@@ -16,6 +16,7 @@ public class CameraFollow : MonoBehaviour
     {
         if (target == null) return;
         Vector3 desiredPosition = target.position + offset + shakeOffset;
+        desiredPosition.y = Mathf.Max(desiredPosition.y, 4f);
         transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
     }
 

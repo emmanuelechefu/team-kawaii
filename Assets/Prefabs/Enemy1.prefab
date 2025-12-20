@@ -184,4 +184,4 @@ MonoBehaviour:
   touchDamage: 1
   goldDrop: 1
   goldPrefab: {fileID: -4679672975392899134, guid: dd587f3491d882b4d88ec0f1c4199e8e, type: 3}
-  speed: 2
+  speed: 1

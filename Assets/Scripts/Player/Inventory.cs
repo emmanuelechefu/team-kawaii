@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    [Tooltip("All weapon datas that exist in the game (rocks, pistol, etc).")]
+    [Tooltip("All weapon datas that exist in the game (slash, pistol, etc).")]
     public List<WeaponData> allWeapons;
 
     [HideInInspector] public List<WeaponInstance> weapons = new();
@@ -28,13 +28,13 @@ public class Inventory : MonoBehaviour
             // Owned comes from persistent session
             wi.owned = GameSession.Instance != null && GameSession.Instance.ownedWeapons.Contains(wd.id);
 
-            // Always force Rocks owned
-            if (wd.id == WeaponId.Rocks) wi.owned = true;
+            // Always force Slash owned
+            if (wd.id == WeaponId.Slash) wi.owned = true;
 
             weapons.Add(wi);
         }
 
-        currentIndex = FindIndex(WeaponId.Rocks);
+        currentIndex = FindIndex(WeaponId.Slash);
         if (currentIndex < 0) currentIndex = 0;
     }
 
@@ -80,16 +80,16 @@ public class Inventory : MonoBehaviour
         w.ammo = Mathf.Clamp(w.ammo + amount, 0, w.data.maxAmmo);
     }
 
-    public void FallbackToRocksIfEmpty()
+    public void FallbackToSlashIfEmpty()
     {
         var w = Current;
-        if (w.data.id == WeaponId.Rocks) return;
+        if (w.data.id == WeaponId.Slash) return;
         if (w.data.infiniteAmmo) return;
 
         if (w.ammo <= 0)
         {
-            int rocks = FindIndex(WeaponId.Rocks);
-            if (rocks >= 0) currentIndex = rocks;
+            int slash = FindIndex(WeaponId.Slash);
+            if (slash >= 0) currentIndex = slash;
         }
     }
 }

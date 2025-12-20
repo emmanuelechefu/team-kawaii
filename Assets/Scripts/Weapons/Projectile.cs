@@ -12,6 +12,18 @@ public class Projectile : MonoBehaviour
 
     void Awake() => rb = GetComponent<Rigidbody2D>();
 
+    void Update()
+    {
+        //updates rotation of projectile every frame
+        Vector2 v = rb.linearVelocity;
+
+        if (v.sqrMagnitude > 0.001f)
+        {
+            float angle = Mathf.Atan2(v.y, v.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
+    }
+
     public void Init(Vector2 direction, float speed, int dmg, bool passesWalls, string ownerTag)
     {
         this.damage = dmg;
@@ -39,6 +51,12 @@ public class Projectile : MonoBehaviour
         if (!passThroughWalls && (other.gameObject.layer == LayerMask.NameToLayer("Ground") ||
                                  other.gameObject.layer == LayerMask.NameToLayer("Walls")))
         {
+            Destroy(gameObject);
+        }
+
+        if (other.CompareTag("Barrel"))
+        {
+            Destroy(other.gameObject);
             Destroy(gameObject);
         }
     }

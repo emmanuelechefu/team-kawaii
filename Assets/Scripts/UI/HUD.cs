@@ -3,7 +3,7 @@ using TMPro;
 
 public class HUD : MonoBehaviour
 {
-    public TMP_Text goldText;
+    [SerializeField] public TMP_Text goldText;
     public TMP_Text hpText;
     public TMP_Text weaponText;
     public TMP_Text ammoText;
@@ -21,14 +21,14 @@ public class HUD : MonoBehaviour
         }
 
         // fallback find
-        if (ph == null) ph = FindObjectOfType<PlayerHealth>();
-        if (inv == null) inv = FindObjectOfType<Inventory>();
+        if (ph == null) ph = FindFirstObjectByType<PlayerHealth>();
+        if (inv == null) inv = FindFirstObjectByType<Inventory>();
     }
 
     void Update()
     {
         if (goldText && GameSession.Instance != null)
-            goldText.text = $"GOLD: {GameSession.Instance.gold}";
+            goldText.text = $"{GameSession.Instance.gold}";
 
         if (ph != null && hpText)
             hpText.text = $"HP: {ph.hp}/{ph.maxHP}";

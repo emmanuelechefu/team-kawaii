@@ -23,7 +23,7 @@ public class PlayerCombat : MonoBehaviour
         weapons.Clear();
         foreach (var wd in startingWeaponDatas)
         {
-            var wi = new WeaponInstance { data = wd, owned = (wd.id == WeaponId.Rocks) };
+            var wi = new WeaponInstance { data = wd, owned = (wd.id == WeaponId.Slash) };
             wi.Init();
 
             // Pistol starter is free and owned in lobby, but you can mark it owned here if you want for testing:
@@ -32,8 +32,8 @@ public class PlayerCombat : MonoBehaviour
             weapons.Add(wi);
         }
 
-        // Ensure current is Rocks initially
-        currentWeaponIndex = FindWeaponIndex(WeaponId.Rocks);
+        // Ensure current is Slash initially
+        currentWeaponIndex = FindWeaponIndex(WeaponId.Slash);
     }
 
     void Update()
@@ -41,11 +41,11 @@ public class PlayerCombat : MonoBehaviour
         HandleScrollWheel();
 
         // Shoot with Space
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space)) 
             TryFire();
 
-        HandleRocksRegen();
-        AutoFallbackToRocksIfEmpty();
+        HandleSlashRegen();
+        AutoFallbackToSlashIfEmpty();
     }
 
     void HandleScrollWheel()
@@ -86,35 +86,35 @@ public class PlayerCombat : MonoBehaviour
             w.ammo = Mathf.Max(0, w.ammo - 1);
     }
 
-    void HandleRocksRegen()
+    void HandleSlashRegen()
     {
-        var rocksIndex = FindWeaponIndex(WeaponId.Rocks);
-        if (rocksIndex < 0) return;
+        var slashIndex = FindWeaponIndex(WeaponId.Slash);
+        if (slashIndex < 0) return;
 
-        var rocks = weapons[rocksIndex];
-        if (!rocks.data.regenAmmoOverTime) return;
-        if (rocks.data.infiniteAmmo) return;
+        var slash = weapons[slashIndex];
+        if (!slash.data.regenAmmoOverTime) return;
+        if (slash.data.infiniteAmmo) return;
 
-        if (rocks.ammo >= rocks.data.maxAmmo) { regenTimer = 0f; return; }
+        if (slash.ammo >= slash.data.maxAmmo) { regenTimer = 0f; return; }
 
         regenTimer += Time.deltaTime;
-        if (regenTimer >= rocks.data.regenInterval)
+        if (regenTimer >= slash.data.regenInterval)
         {
-            regenTimer -= rocks.data.regenInterval;
-            rocks.ammo = Mathf.Min(rocks.data.maxAmmo, rocks.ammo + 1);
+            regenTimer -= slash.data.regenInterval;
+            slash.ammo = Mathf.Min(slash.data.maxAmmo, slash.ammo + 1);
         }
     }
 
-    void AutoFallbackToRocksIfEmpty()
+    void AutoFallbackToSlashIfEmpty()
     {
         var w = weapons[currentWeaponIndex];
-        if (w.data.id == WeaponId.Rocks) return;
+        if (w.data.id == WeaponId.Slash) return;
         if (w.data.infiniteAmmo) return;
 
         if (w.ammo <= 0)
         {
-            int rocksIndex = FindWeaponIndex(WeaponId.Rocks);
-            if (rocksIndex >= 0) currentWeaponIndex = rocksIndex;
+            int slashIndex = FindWeaponIndex(WeaponId.Slash);
+            if (slashIndex >= 0) currentWeaponIndex = slashIndex;
         }
     }
 

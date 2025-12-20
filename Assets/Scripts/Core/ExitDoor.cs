@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class ExitDoor : MonoBehaviour
 {
     public string lobbySceneName = "Lobby";
+    [SerializeField] public string nextLevelScene = "";
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -15,7 +16,7 @@ public class ExitDoor : MonoBehaviour
             return;
         }
 
-        Debug.Log($"Loading scene: {lobbySceneName}");
-        SceneManager.LoadScene(lobbySceneName);
+        Debug.Log($"Loading scene: {nextLevelScene}");
+        SceneManager.LoadScene(nextLevelScene);
     }
 }

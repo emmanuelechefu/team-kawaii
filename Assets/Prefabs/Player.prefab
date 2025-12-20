@@ -75,9 +75,9 @@ GameObject:
   - component: {fileID: -6808506712146460107}
   - component: {fileID: 279612473703108533}
   - component: {fileID: 6973069960915098120}
+  - component: {fileID: -4221039826132796027}
   - component: {fileID: 1263937004546469854}
   - component: {fileID: -5901035709948011433}
-  - component: {fileID: -4221039826132796027}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -253,6 +253,20 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &-4221039826132796027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6409545399163490727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40972709340c29d43b20226d74327b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  firePoint: {fileID: 1389545402692740407}
+  mainCam: {fileID: 0}
 --- !u!114 &1263937004546469854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,6 +281,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
   maxHP: 3
   hp: 3
+  knockbackForce: 8
+  shakeDuration: 0.2
+  shakeAmount: 0.3
 --- !u!114 &-5901035709948011433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,17 +301,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b0a727d12c45bd54c96645228526d302, type: 2}
   weapons: []
   currentIndex: 0
---- !u!114 &-4221039826132796027
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6409545399163490727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40972709340c29d43b20226d74327b61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
-  firePoint: {fileID: 1389545402692740407}
-  mainCam: {fileID: 0}

@@ -16,6 +16,7 @@ public class Enemy1 : EnemyBase
     {
         if (player == null) return;
         float dir = Mathf.Sign(player.position.x - transform.position.x);
-        rb.linearVelocity = new Vector2(dir * speed, rb.linearVelocity.y);
+        if (Mathf.Abs(player.position.x - transform.position.x) < 13f)
+            rb.linearVelocity = new Vector2(dir * speed, rb.linearVelocity.y);
     }
 }

@@ -5,6 +5,8 @@ public class PlayerCombatInventory : MonoBehaviour
 {
     public Transform firePoint;
     public Camera mainCam;
+    
+    Animator anim;
 
     private Inventory inv;
     private float nextFireTime;
@@ -13,6 +15,7 @@ public class PlayerCombatInventory : MonoBehaviour
     void Awake()
     {
         inv = GetComponent<Inventory>();
+        anim = GetComponent<Animator>();
         if (mainCam == null) mainCam = Camera.main;
     }
 
@@ -21,12 +24,15 @@ public class PlayerCombatInventory : MonoBehaviour
         if (firePoint == null || mainCam == null || inv.weapons.Count == 0) return;
 
         HandleScroll();
-        HandleRocksRegen();
+        HandleSlashRegen();
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
+            anim.SetTrigger("attack");
             TryFire();
+        }
 
-        inv.FallbackToRocksIfEmpty();
+        inv.FallbackToSlashIfEmpty();
     }
 
     void HandleScroll()
@@ -56,20 +62,20 @@ public class PlayerCombatInventory : MonoBehaviour
             w.ammo = Mathf.Max(0, w.ammo - 1);
     }
 
-    void HandleRocksRegen()
+    void HandleSlashRegen()
     {
-        int rocksIndex = inv.FindIndex(WeaponId.Rocks);
-        if (rocksIndex < 0) return;
+        int slashIndex = inv.FindIndex(WeaponId.Slash);
+        if (slashIndex < 0) return;
 
-        var rocks = inv.weapons[rocksIndex];
-        if (!rocks.data.regenAmmoOverTime || rocks.data.infiniteAmmo) return;
-        if (rocks.ammo >= rocks.data.maxAmmo) { regenTimer = 0f; return; }
+        var slash = inv.weapons[slashIndex];
+        if (!slash.data.regenAmmoOverTime || slash.data.infiniteAmmo) return;
+        if (slash.ammo >= slash.data.maxAmmo) { regenTimer = 0f; return; }
 
         regenTimer += Time.deltaTime;
-        if (regenTimer >= rocks.data.regenInterval)
+        if (regenTimer >= slash.data.regenInterval)
         {
-            regenTimer -= rocks.data.regenInterval;
-            rocks.ammo = Mathf.Min(rocks.data.maxAmmo, rocks.ammo + 1);
+            regenTimer -= slash.data.regenInterval;
+            slash.ammo = Mathf.Min(slash.data.maxAmmo, slash.ammo + 1);
         }
     }
 }

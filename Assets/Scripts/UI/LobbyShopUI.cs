@@ -11,7 +11,7 @@ public class LobbyShopUI : MonoBehaviour
 
     public int healCost = 8;
 
-    public string nextLevelScene = "Level1"; // change to Level2 later
+    public string nextLevelScene = "Level_1"; // change to Level2 later
 
     private PlayerHealth playerHealth;
     private PlayerCombat playerCombat;
@@ -20,8 +20,8 @@ public class LobbyShopUI : MonoBehaviour
     {
         // In lobby you may show a “dummy player” for preview, or spawn a player.
         // Simplest: have a player object in lobby.
-        playerHealth = FindObjectOfType<PlayerHealth>();
-        playerCombat = FindObjectOfType<PlayerCombat>();
+        playerHealth = FindFirstObjectByType<PlayerHealth>();
+        playerCombat = FindFirstObjectByType<PlayerCombat>();
     }
 
     void Update()

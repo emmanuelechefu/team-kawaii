@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum WeaponId { Rocks, Pistol /* add more later */ }
+public enum WeaponId { Slash, Pistol /* add more later */ }
 
 [CreateAssetMenu(menuName = "Game/WeaponData")]
 public class WeaponData : ScriptableObject
@@ -19,7 +19,7 @@ public class WeaponData : ScriptableObject
     public int startAmmo = 30;
     public int maxAmmo = 30;
 
-    [Tooltip("For Rocks: regen 1 ammo every X seconds.")]
+    [Tooltip("For Slash: regen 1 ammo every X seconds.")]
     public bool regenAmmoOverTime = false;
     public float regenInterval = 2.5f;
 
