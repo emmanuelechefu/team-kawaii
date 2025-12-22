@@ -7,6 +7,7 @@ public class PlayerController2D : MonoBehaviour
     public float jumpForce = 12f;
 
     private bool grounded;
+    private int jumpCounter;
     public Transform groundCheck;
     public float groundRadius = 0.15f;
     public LayerMask groundMask;
@@ -50,12 +51,15 @@ public class PlayerController2D : MonoBehaviour
             transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
 
         // applies an upwards force to the player
-        if (jumpQueued && grounded)
+        if (jumpQueued && (grounded || jumpCounter < 2))
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            grounded = false;
+            jumpCounter++;
         }
         jumpQueued = false;
+        
     }
 
     // checks if the player is on the ground
@@ -64,6 +68,7 @@ public class PlayerController2D : MonoBehaviour
         if (collision.gameObject.tag == "Ground" || collision.gameObject.tag == "Barrel")
         {
             grounded = true;
+            jumpCounter = 0;
         }
     }
 }
